@@ -48,12 +48,14 @@ public class RewardService {
 		if (existingRewardOptional.isPresent()) {
 			Reward existingReward = existingRewardOptional.get();
 
-			if (dto.getTitle() != null)
-				existingReward.setTitle(dto.getTitle());
-			if (dto.getDescription() != null)
-				existingReward.setDescription(dto.getDescription());
-			if (dto.getPointsRequired() != null)
-				existingReward.setPointsRequired(dto.getPointsRequired());
+			if (updatedReward.getTitle() != null)
+				existingReward.setTitle(updatedReward.getTitle());
+			if (updatedReward.getDescription() != null)
+				existingReward.setDescription(updatedReward.getDescription());
+			if (updatedReward.getPointsRequired() != 0)
+				existingReward.setPointsRequired(updatedReward.getPointsRequired());
+			if (updatedReward.isActive())
+				existingReward.setActive(updatedReward.isActive());
 
 			existingReward.setUpdatedAt(new Date());
 
