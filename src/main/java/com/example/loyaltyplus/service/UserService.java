@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import com.example.loyaltyplus.model.entity.User;
 import com.example.loyaltyplus.repository.UserRepository;
 
 @Service
+@Primary
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;

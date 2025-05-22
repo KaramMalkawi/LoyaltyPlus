@@ -1,15 +1,19 @@
 package com.example.loyaltyplus.service;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.example.loyaltyplus.model.dto.LoginUserDto;
 import com.example.loyaltyplus.model.dto.UserDto;
 import com.example.loyaltyplus.model.entity.User;
 import com.example.loyaltyplus.repository.UserRepository;
 
+@Service
+@Primary
 public class AuthenticationService {
 
 	private UserRepository userRepository;

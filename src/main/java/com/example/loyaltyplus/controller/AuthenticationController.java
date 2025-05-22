@@ -33,8 +33,8 @@ public class AuthenticationController {
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<User> register(@RequestBody UserDto userDto) {
-		User registeredUser = authenticationService.signup(userDto);
+	public ResponseEntity<User> register(@RequestBody UserDto registerUserDto) {
+		User registeredUser = authenticationService.signup(registerUserDto);
 		System.err.print(registeredUser);
 		return ResponseEntity.ok(registeredUser);
 	}

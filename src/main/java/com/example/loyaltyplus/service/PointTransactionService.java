@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.example.loyaltyplus.model.dto.PointTransactionDto;
 import com.example.loyaltyplus.model.entity.PointTransaction;
@@ -14,7 +14,7 @@ import com.example.loyaltyplus.repository.PointTransactionRepository;
 import com.example.loyaltyplus.repository.UserRepository;
 
 @Service
-@Transactional
+@Primary
 public class PointTransactionService {
 
 	private final PointTransactionRepository pointTransactionRepository;
