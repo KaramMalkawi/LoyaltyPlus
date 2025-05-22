@@ -17,7 +17,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name = "reward_redemptions", schema = "loyaltyplus")
+@Table(name = "reward_redemptions")
 public class RewardRedemption {
 
 	@Id

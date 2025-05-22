@@ -2,12 +2,12 @@ package com.example.loyaltyplus.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +20,7 @@ import com.example.loyaltyplus.service.PointTransactionService;
 @RequestMapping("/api/point-transactions")
 public class PointTransactionController {
 
+	@Autowired
 	private final PointTransactionService pointTransactionService;
 
 	public PointTransactionController(PointTransactionService pointTransactionService) {
@@ -44,7 +45,7 @@ public class PointTransactionController {
 		return ResponseEntity.ok(newPointTransaction);
 	}
 
-	@PutMapping("/update/{id}")
+	@PostMapping("/update/{id}")
 	public ResponseEntity<PointTransaction> updatePointTransaction(@PathVariable Long id,
 			@RequestBody PointTransactionDto updatedPointTransactionDto) {
 		try {

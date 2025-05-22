@@ -11,17 +11,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.loyaltyplus.model.dto.UserDto;
+import com.example.loyaltyplus.model.entity.Role;
 import com.example.loyaltyplus.model.entity.User;
+import com.example.loyaltyplus.repository.RoleRepository;
 import com.example.loyaltyplus.repository.UserRepository;
 
 @Service
 @Primary
 public class UserService {
+
 	@Autowired
 	private UserRepository userRepository;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private RoleRepository roleRepository;
 
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
@@ -35,39 +41,11 @@ public class UserService {
 		return userRepository.findByUsername(username);
 	}
 
-//	public User updateUser(Long id, UserDto dto) {
-//		Optional<User> optionalUser = userRepository.findById(id);
-//		if (optionalUser.isPresent()) {
-//			User existingUser = optionalUser.get();
-//
-//			if (dto.getFirstName() != null)
-//				existingUser.setFirstName(dto.getFirstName());
-//			if (dto.getLastName() != null)
-//				existingUser.setLastName(dto.getLastName());
-//			if (dto.getUsername() != null)
-//				existingUser.setUsername(dto.getUsername());
-//			if (dto.getEmail() != null)
-//				existingUser.setEmail(dto.getEmail());
-//			if (dto.getPhone() != null)
-//				existingUser.setPhone(dto.getPhone());
-//			if (dto.getRole() != null)
-//				existingUser.setRole(dto.getRole());
-//			if (dto.getPassword() != null) {
-//				existingUser.setPassword(passwordEncoder.encode(dto.getPassword()));
-//			}
-//
-//			return userRepository.save(existingUser);
-//		}
-//		return null;
-//	}
-
 	public User updateUser(Long id, UserDto dto) throws NoSuchElementException, IllegalArgumentException {
-		// Validate input
 		if (dto == null) {
 			throw new IllegalArgumentException("User DTO cannot be null");
 		}
 
-		// Find existing user
 		Optional<User> optionalUser = userRepository.findById(id);
 		if (optionalUser.isEmpty()) {
 			throw new NoSuchElementException("User not found with ID: " + id);
@@ -75,31 +53,45 @@ public class UserService {
 
 		User existingUser = optionalUser.get();
 
-		// Update fields if they are present in DTO
-		if (dto.getFirstName() != null)
+		if (dto.getFirstName() != null) {
 			existingUser.setFirstName(dto.getFirstName());
-		if (dto.getLastName() != null)
+		}
+		if (dto.getLastName() != null) {
 			existingUser.setLastName(dto.getLastName());
-		if (dto.getUsername() != null)
+		}
+		if (dto.getUsername() != null) {
 			existingUser.setUsername(dto.getUsername());
-		if (dto.getEmail() != null)
+		}
+		if (dto.getEmail() != null) {
 			existingUser.setEmail(dto.getEmail());
-		if (dto.getPhone() != null)
+		}
+		if (dto.getPhone() != null) {
 			existingUser.setPhone(dto.getPhone());
-		if (dto.getRole() != null)
-			existingUser.setRole(dto.getRole());
-		if (dto.getPassword() != null)
-			existingUser.setPassword(passwordEncoder.encode(dto.getPassword()));
+		}
 
-		// Update timestamps (optional)
+		// Validate and set role
+		if (dto.getRoleName() != null) {
+			String roleName = dto.getRoleName().toUpperCase();
+			if (!roleName.equals("SHOPPER") && !roleName.equals("STORE_MANAGER")
+					&& !roleName.equals("MARKETING_ANALYST")) {
+				throw new IllegalArgumentException(
+						"Invalid role. Allowed roles: SHOPPER, STORE_MANAGER, MARKETING_ANALYST");
+			}
+			Role role = roleRepository.findByName(roleName)
+					.orElseThrow(() -> new IllegalArgumentException("Role not found in database: " + roleName));
+			existingUser.setRole(role);
+		}
+
+		if (dto.getPassword() != null) {
+			existingUser.setPassword(passwordEncoder.encode(dto.getPassword()));
+		}
+
 		existingUser.setUpdatedAt(new Date());
 
-		// Save and return the updated user
 		return userRepository.save(existingUser);
 	}
 
 	public void deleteUser(Long id) {
 		userRepository.deleteById(id);
 	}
-
 }

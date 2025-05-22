@@ -3,7 +3,11 @@ package com.example.loyaltyplus.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,30 +27,34 @@ public class RewardRedemptionController {
 		this.rewardRedemptionService = rewardRedemptionService;
 	}
 
-	@RequestMapping("/all")
-	public List<RewardRedemption> getAllRewardRedemptions() {
-		return rewardRedemptionService.getAllRewardRedemptions();
+	@GetMapping("/all")
+	public ResponseEntity<List<RewardRedemption>> getAllRewardRedemptions() {
+		List<RewardRedemption> redemptions = rewardRedemptionService.getAllRewardRedemptions();
+		return ResponseEntity.ok(redemptions);
 	}
 
-	@RequestMapping("/find/{id}")
-	public RewardRedemption getRewardRedemptionById(@PathVariable Long id) {
-		return rewardRedemptionService.getRewardRedemptionById(id).orElse(null);
+	@GetMapping("/find/{id}")
+	public ResponseEntity<RewardRedemption> getRewardRedemptionById(@PathVariable Long id) {
+		return rewardRedemptionService.getRewardRedemptionById(id).map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
 	}
 
-	@RequestMapping("/create")
-	public RewardRedemption createRewardRedemption(@RequestBody RewardRedemption rewardRedemption) {
-		return rewardRedemptionService.createRewardRedemption(rewardRedemption);
+	@PostMapping("/create")
+	public ResponseEntity<RewardRedemption> createRewardRedemption(@RequestBody RewardRedemption rewardRedemption) {
+		RewardRedemption created = rewardRedemptionService.createRewardRedemption(rewardRedemption);
+		return ResponseEntity.ok(created);
 	}
 
-	@RequestMapping("/update/{id}")
-	public RewardRedemption updateRewardRedemption(@PathVariable Long id,
+	@PostMapping("/update/{id}")
+	public ResponseEntity<RewardRedemption> updateRewardRedemption(@PathVariable Long id,
 			@RequestBody RewardRedemptionDto updatedRewardRedemptionDto) {
-		return rewardRedemptionService.updateRewardRedemption(id, updatedRewardRedemptionDto);
+		RewardRedemption updated = rewardRedemptionService.updateRewardRedemption(id, updatedRewardRedemptionDto);
+		return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
 	}
 
-	@RequestMapping("/delete/{id}")
-	public void deleteRewardRedemption(@PathVariable Long id) {
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<Void> deleteRewardRedemption(@PathVariable Long id) {
 		rewardRedemptionService.deleteRewardRedemption(id);
+		return ResponseEntity.noContent().build();
 	}
-
 }

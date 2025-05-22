@@ -3,14 +3,14 @@ package com.example.loyaltyplus.controller;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,14 +25,14 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/users")
 public class UserController {
 
+	@Autowired
 	private final UserService userService;
 
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
 
-	@GetMapping
-	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/all")
 	public ResponseEntity<List<User>> getAllUsers() {
 		return ResponseEntity.ok(userService.getAllUsers());
 	}
@@ -42,7 +42,7 @@ public class UserController {
 		return userService.getUserById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 
-	@PutMapping("/update/{id}")
+	@PostMapping("/update/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody UserDto userDto) {
 		try {
 			return ResponseEntity.ok(userService.updateUser(id, userDto));
@@ -54,7 +54,6 @@ public class UserController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	@PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.id")
 	public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
 		userService.deleteUser(id);
 		return ResponseEntity.noContent().build();

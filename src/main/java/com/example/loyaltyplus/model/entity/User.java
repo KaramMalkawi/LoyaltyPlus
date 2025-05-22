@@ -15,15 +15,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name = "users", schema = "loyaltyplus", indexes = {
-		@Index(name = "idx_user_email", columnList = "email", unique = true),
-		@Index(name = "idx_user_username", columnList = "username", unique = true) })
+@Table(name = "users", indexes = { @Index(name = "idx_user_email", columnList = "email", unique = true),
+		@Index(name = "idx_user_username", columnList = "username", unique = true),
+		@Index(name = "idx_user_phone", columnList = "phone", unique = true) })
 public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,8 +50,12 @@ public class User implements UserDetails {
 	@Column(name = "password", nullable = false)
 	private String password;
 
-	@Column(name = "role", nullable = false)
-	private String role; // "SHOPPER", "STORE_MANAGER", "MARKETING_ANALYST"
+	@Column(name = "current_points", nullable = false)
+	private Integer currentPoints = 0;
+
+	@ManyToOne
+	@JoinColumn(name = "role_id", nullable = false)
+	private Role role;
 
 	@Column(name = "created_at", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -68,11 +74,12 @@ public class User implements UserDetails {
 	public User() {
 	}
 
-	public User(String firstName, String lastName, String username, String email, String password, String role,
-			Date createdAt, Date updatedAt) {
+	public User(String firstName, String lastName, String username, String phone, String email, String password,
+			Role role, Date createdAt, Date updatedAt) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
+		this.phone = phone;
 		this.email = email;
 		this.password = password;
 		this.role = role;
@@ -137,11 +144,19 @@ public class User implements UserDetails {
 		this.password = password;
 	}
 
-	public String getRole() {
+	public Integer getCurrentPoints() {
+		return currentPoints;
+	}
+
+	public void setCurrentPoints(Integer currentPoints) {
+		this.currentPoints = currentPoints;
+	}
+
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 

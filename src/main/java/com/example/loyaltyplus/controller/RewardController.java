@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,34 +26,32 @@ public class RewardController {
 		this.rewardService = rewardService;
 	}
 
-	// Define your endpoints here
-	@RequestMapping("/all")
+	@GetMapping("/all")
 	public ResponseEntity<List<Reward>> getAllRewards() {
 		List<Reward> rewards = rewardService.getAllRewards();
 		return ResponseEntity.ok(rewards);
 	}
 
-	@RequestMapping("/find/{id}")
+	@GetMapping("/find/{id}")
 	public ResponseEntity<Reward> getRewardById(@PathVariable Long id) {
 		return rewardService.getRewardById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 
-	@RequestMapping("/create")
+	@PostMapping("/create")
 	public ResponseEntity<Reward> createReward(@RequestBody Reward reward) {
 		Reward newReward = rewardService.createReward(reward);
 		return ResponseEntity.ok(newReward);
 	}
 
-	@RequestMapping("/update/{id}")
+	@PostMapping("/update/{id}")
 	public ResponseEntity<Reward> updateReward(@PathVariable Long id, @RequestBody Reward updatedReward) {
-		Reward updatedTransaction = rewardService.updateReward(id, updatedReward);
-		return updatedTransaction != null ? ResponseEntity.ok(updatedTransaction) : ResponseEntity.notFound().build();
+		Reward updated = rewardService.updateReward(id, updatedReward);
+		return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
 	}
 
-	@RequestMapping("/delete/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Void> deleteReward(@PathVariable Long id) {
 		rewardService.deleteReward(id);
 		return ResponseEntity.noContent().build();
 	}
-
 }

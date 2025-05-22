@@ -1,5 +1,7 @@
 package com.example.loyaltyplus.config;
 
+import java.io.IOException;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,7 +14,6 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import com.example.loyaltyplus.authentication.JwtService;
 
-import io.jsonwebtoken.io.IOException;
 import io.micrometer.common.lang.NonNull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -35,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
-			@NonNull FilterChain filterChain) throws ServletException, IOException, java.io.IOException {
+			@NonNull FilterChain filterChain) throws ServletException, IOException, IOException {
 		final String authHeader = request.getHeader("Authorization");
 
 		if (authHeader == null || !authHeader.startsWith("Bearer ")) {

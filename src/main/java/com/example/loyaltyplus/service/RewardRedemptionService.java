@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.example.loyaltyplus.model.dto.RewardRedemptionDto;
@@ -16,14 +15,15 @@ import com.example.loyaltyplus.repository.RewardRepository;
 import com.example.loyaltyplus.repository.UserRepository;
 
 @Service
-@Primary
 public class RewardRedemptionService {
 
+	@Autowired
 	private final RewardRedemptionRepository rewardRedemptionRepository;
+	@Autowired
 	private final UserRepository userRepository;
+	@Autowired
 	private final RewardRepository rewardRepository;
 
-	@Autowired
 	public RewardRedemptionService(RewardRedemptionRepository rewardRedemptionRepository, UserRepository userRepository,
 			RewardRepository rewardRepository) {
 		this.rewardRedemptionRepository = rewardRedemptionRepository;

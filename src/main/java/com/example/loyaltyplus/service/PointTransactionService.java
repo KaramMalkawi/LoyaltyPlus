@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.context.annotation.Primary;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.loyaltyplus.model.dto.PointTransactionDto;
@@ -14,10 +14,12 @@ import com.example.loyaltyplus.repository.PointTransactionRepository;
 import com.example.loyaltyplus.repository.UserRepository;
 
 @Service
-@Primary
 public class PointTransactionService {
 
+	@Autowired
 	private final PointTransactionRepository pointTransactionRepository;
+
+	@Autowired
 	private final UserRepository userRepository;
 
 	public PointTransactionService(PointTransactionRepository pointTransactionRepository,

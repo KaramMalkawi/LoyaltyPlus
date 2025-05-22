@@ -27,15 +27,27 @@ public class SecurityConfiguration {
 		this.jwtAuthenticationFilter = jwtAuthenticationFilter;
 	}
 
+//	@Bean
+//	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+//		httpSecurity.csrf(csrf -> csrf.disable()) // Disable CSRF for stateless APIs
+//				.cors(cors -> cors.configurationSource(corsConfigurationSource())) // Enable CORS
+//				.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**", "/api/user/all").permitAll()
+//						.anyRequest().authenticated())
+//				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//				.authenticationProvider(authenticationProvider) // Set the custom authentication provider
+//				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Add JWT filter
+//
+//		return httpSecurity.build();
+//	}
+
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf(csrf -> csrf.disable()) // Disable CSRF for stateless APIs
-				.cors(cors -> cors.configurationSource(corsConfigurationSource())) // Enable CORS
+		httpSecurity.csrf(csrf -> csrf.disable()).cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.authorizeHttpRequests(
-						auth -> auth.requestMatchers("/auth/**", "/user/all").permitAll().anyRequest().authenticated())
+						auth -> auth.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authenticationProvider(authenticationProvider) // Set the custom authentication provider
-				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Add JWT filter
+				.authenticationProvider(authenticationProvider)
+				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return httpSecurity.build();
 	}

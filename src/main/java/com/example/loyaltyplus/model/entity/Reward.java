@@ -19,8 +19,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name = "rewards", schema = "", indexes = {
-		@Index(name = "idx_reward_title", columnList = "title", unique = true) })
+@Table(name = "rewards", indexes = { @Index(name = "idx_reward_title", columnList = "title", unique = true) })
 public class Reward {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
