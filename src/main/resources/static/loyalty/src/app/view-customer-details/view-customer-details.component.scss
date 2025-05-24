@@ -1,0 +1,142 @@
+.customer-container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fafafa;
+  border-radius: 8px;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+/* Customer Details */
+.customer-details h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1976d2;
+}
+
+/* Customer Card */
+.customer-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+/* Detail Rows */
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #424242;
+}
+
+.detail-value {
+  color: #555;
+}
+
+/* No Customer Message */
+.no-customer {
+  text-align: center;
+  font-style: italic;
+  color: #888;
+  margin-top: 20px;
+}
+
+/* Actions Buttons */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.actions button {
+  min-width: 200px;
+  color: white;
+  font-size: 20px;
+  border-radius: 7px;
+  min-height: 35px;
+  min-width: 170px;
+}
+
+.actions button[color="primary"] {
+  background-color: #1976d2 !important;
+}
+
+.actions button[color="warn"] {
+  background-color: #e7473b !important;
+}
+
+.actions button[color="primary"]:hover {
+  background-color: #1565c0 !important;
+}
+
+.actions button[color="warn"]:hover {
+  background-color: #ff0000 !important;
+}
+
+/* Rewards Section */
+.rewards-section {
+  margin-top: 30px;
+}
+
+.rewards-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1976d2;
+}
+
+.rewards-table {
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.rewards-table th {
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+}
+
+.rewards-table td, .rewards-table th {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.rewards-table tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.rewards-table tr:hover {
+  background-color: #e3f2fd;
+}
+
+.no-rewards {
+  text-align: center;
+  font-style: italic;
+  color: #888;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Button in table */
+.rewards-table button {
+  min-width: 100px;
+}

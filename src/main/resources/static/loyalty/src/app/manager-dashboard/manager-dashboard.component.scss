@@ -1,0 +1,99 @@
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fafafa;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+/* Buttons */
+.container button {
+  margin: 10px 10px 20px 0;
+  font-weight: 600;
+}
+
+.container button[color="primary"] {
+  background-color: #1976d2;
+  color: white;
+  font-size: 20px;
+  border-radius: 7px;
+  min-height: 35px;
+  min-width: 170px;
+}
+
+.container button[color="accent"] {
+  background-color: #186e07;
+  color: white;
+  font-size: 20px;
+  border-radius: 7px;
+  min-height: 35px;
+  min-width: 170px;
+}
+
+.container button[color="primary"]:hover {
+  background-color: #1565c0;
+}
+
+.container button[color="accent"]:hover {
+  background-color: #18500d;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.mat-header-row {
+  background-color: #eeeeee;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.mat-cell, .mat-header-cell {
+  padding: 12px 16px;
+}
+
+.mat-row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Action Buttons */
+table button {
+  min-width: 64px;
+  font-weight: 500;
+  color: #1976d2;
+}
+
+table button:hover {
+  text-decoration: underline;
+}
+
+/* Paginator */
+mat-paginator {
+  margin-top: 20px;
+}
+mat-paginator .mat-paginator-page-size {
+  margin-right: 16px;
+}
+
+.add-points-button {
+  color: white;
+  font-size: 20px;
+  border-radius: 7px;
+  min-height: 2px !important; 
+  min-width: 2px !important;
+}

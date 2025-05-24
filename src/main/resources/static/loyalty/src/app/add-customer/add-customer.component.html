@@ -1,0 +1,119 @@
+<!-- Add Customer Form -->
+<form [formGroup]="customerForm" (ngSubmit)="handleSubmit()" class="form">
+  <h2 class="form-title">Add Customer</h2>
+
+  <!-- First Name Field -->
+  <mat-form-field class="example-full-width">
+    <mat-label>First Name</mat-label>
+    <input matInput formControlName="firstName" placeholder="Enter First Name" required />
+    <mat-error *ngIf="customerForm.get('firstName')?.hasError('required')">
+      First Name is required
+    </mat-error>
+    <mat-error *ngIf="customerForm.get('firstName')?.hasError('minlength')">
+      First Name must be at least 3 characters
+    </mat-error>
+    <mat-error *ngIf="customerForm.get('firstName')?.hasError('maxlength')">
+      First Name cannot exceed 10 characters
+    </mat-error>
+    <mat-error *ngIf="customerForm.get('firstName')?.hasError('pattern')">
+      First Name can only contain letters
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Last Name Field -->
+  <mat-form-field class="example-full-width">
+    <mat-label>Last Name</mat-label>
+    <input matInput formControlName="lastName" placeholder="Enter Last Name" required />
+    <mat-error *ngIf="customerForm.get('lastName')?.hasError('required')">
+      Last Name is required
+    </mat-error>
+    <mat-error *ngIf="customerForm.get('lastName')?.hasError('minlength')">
+      Last Name must be at least 3 characters
+    </mat-error>
+    <mat-error *ngIf="customerForm.get('lastName')?.hasError('maxlength')">
+      Last Name cannot exceed 10 characters
+    </mat-error>
+    <mat-error *ngIf="customerForm.get('lastName')?.hasError('pattern')">
+      Last Name can only contain letters
+    </mat-error>
+  </mat-form-field> 
+
+  <!-- Phone Field -->
+  <mat-form-field class="example-full-width">
+    <mat-label>Phone</mat-label>
+    <input matInput formControlName="phone" placeholder="Enter Phone Number" required />
+    <mat-error *ngIf="customerForm.get('phone')?.hasError('required')">
+      Phone number is required
+    </mat-error>
+    <mat-error *ngIf="customerForm.get('phone')?.hasError('pattern')">
+      Phone number must be 10 digits
+    </mat-error>
+  </mat-form-field>
+  
+  <!-- Email Field -->
+  <mat-form-field class="example-full-width">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" placeholder="Enter Email" required />
+    <mat-error *ngIf="customerForm.get('email')?.hasError('required')">
+      Email is required
+    </mat-error>
+    <mat-error *ngIf="customerForm.get('email')?.hasError('email')">
+      Invalid email format
+    </mat-error>
+    <mat-error *ngIf="customerForm.get('email')?.hasError('pattern')">
+      Email must be valid
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Username Field -->
+  <mat-form-field class="example-full-width">
+    <mat-label>Username</mat-label>
+    <input matInput formControlName="username" placeholder="Enter Username" required />
+    <mat-error *ngIf="customerForm.get('username')?.hasError('required')">
+      Username is required
+    </mat-error>
+    <mat-error *ngIf="customerForm.get('username')?.hasError('minlength')">
+      Username must be at least 3 characters
+    </mat-error>
+    <mat-error *ngIf="customerForm.get('username')?.hasError('maxlength')">
+      Username cannot exceed 10 characters
+    </mat-error>
+    <mat-error *ngIf="customerForm.get('username')?.hasError('pattern')">
+      Username can only contain letters
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Password Field -->
+  <mat-form-field class="example-full-width">
+    <mat-label>Password</mat-label>
+    <input matInput formControlName="password" type="password" placeholder="Enter Password" required />
+    <mat-error *ngIf="customerForm.get('password')?.hasError('required')">
+      Password is required
+    </mat-error>
+    <mat-error *ngIf="customerForm.get('password')?.hasError('minlength')">
+      Password must be at least 6 characters
+    </mat-error>
+    <mat-error *ngIf="customerForm.get('password')?.hasError('maxlength')">
+      Password cannot exceed 10 characters
+    </mat-error>
+    <mat-error *ngIf="customerForm.get('password')?.hasError('pattern')">
+      Password must contain at least one uppercase, one lowercase, and one number
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Submit Button -->
+  <button
+    mat-stroked-button
+    type="submit"
+    class="btn btn-primary form-btn"
+    [disabled]="isLoading || customerForm.invalid"
+  >
+    <span *ngIf="isLoading">Creating...</span>
+    <span *ngIf="!isLoading">Create Customer</span>
+  </button>
+</form>
