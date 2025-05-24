@@ -1,5 +1,6 @@
 package com.example.loyaltyplus.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,8 +41,36 @@ public class RewardRedemptionService {
 	}
 
 	public RewardRedemption createRewardRedemption(RewardRedemption rewardRedemption) {
-		return rewardRedemptionRepository.save(rewardRedemption);
+		RewardRedemption newRewardRedemption = new RewardRedemption();
+
+		newRewardRedemption.setUser(rewardRedemption.getUser());
+		newRewardRedemption.setReward(rewardRedemption.getReward());
+		newRewardRedemption.setCreatedAt(new Date());
+
+		return rewardRedemptionRepository.save(newRewardRedemption); // ✅ Save the right object
 	}
+
+	public RewardRedemption createRewardRedemptionFromDto(RewardRedemptionDto dto) {
+		User user = userRepository.findById(dto.getUserId()).orElseThrow(); // Handle errors properly
+		Reward reward = rewardRepository.findById(dto.getRewardId()).orElseThrow();
+
+		RewardRedemption redemption = new RewardRedemption();
+		redemption.setUser(user);
+		redemption.setReward(reward);
+		redemption.setCreatedAt(new Date());
+
+		return rewardRedemptionRepository.save(redemption);
+	}
+
+//	public RewardRedemption createRewardRedemption(RewardRedemption rewardRedemption) {
+//		RewardRedemption newRewardRedemption = new RewardRedemption();
+//
+//		newRewardRedemption.setUser(rewardRedemption.getUser());
+//		newRewardRedemption.setReward(rewardRedemption.getReward());
+//		newRewardRedemption.setCreatedAt(new Date());
+//
+//		return rewardRedemptionRepository.save(rewardRedemption);
+//	}
 
 	public RewardRedemption updateRewardRedemption(Long id, RewardRedemptionDto updatedRewardRedemptionDto) {
 		RewardRedemption existingRewardRedemption = rewardRedemptionRepository.findById(id)

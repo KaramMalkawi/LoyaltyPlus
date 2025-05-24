@@ -1,0 +1,48 @@
+/* Navbar container */
+.navbar {
+  background-color: #f8f9fa;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative; /* Needed for absolute positioning */
+}
+
+/* Logo/brand styling */
+.navbar-brand.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0d6efd;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-right: 2rem;
+}
+
+/* Logout container - positions absolutely on desktop */
+.logout-container {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Logout button styling */
+.logout-btn {
+  padding: 0.5rem 1.25rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+/* Mobile styles */
+@media (max-width: 991.98px) {
+  .logout-container {
+    position: static;
+    transform: none;
+    margin-left: auto;
+    padding: 0.5rem 1rem;
+  }
+  
+  .navbar-collapse {
+    order: 2;
+    width: 100%;
+  }
+}

@@ -1,0 +1,58 @@
+<app-navbar></app-navbar>
+<div class="rewards-container">
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading" class="rewards-content">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Redeem Rewards</mat-card-title>
+        <mat-card-subtitle *ngIf="currentPoints !== null">
+          Current Points: {{ currentPoints }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <table mat-table [dataSource]="rewards" class="mat-elevation-z8">
+          <!-- Title Column -->
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef> Reward Title </th>
+            <td mat-cell *matCellDef="let reward"> {{ reward.title }} </td>
+          </ng-container>
+
+          <!-- Description Column -->
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description </th>
+            <td mat-cell *matCellDef="let reward"> {{ reward.description }} </td>
+          </ng-container>
+
+          <!-- Points Required Column -->
+          <ng-container matColumnDef="pointsRequired">
+            <th mat-header-cell *matHeaderCellDef> Points Required </th>
+            <td mat-cell *matCellDef="let reward"> {{ reward.pointsRequired }} </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let reward">
+              <button mat-raised-button color="primary" 
+                      (click)="redeemReward(reward)"
+                      [disabled]="currentPoints === null || currentPoints < reward.pointsRequired">
+                Redeem
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button (click)="goBack()">Back to Customer</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

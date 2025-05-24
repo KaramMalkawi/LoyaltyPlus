@@ -1,0 +1,27 @@
+/* add-rewards.component.scss */
+.rewards-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.mat-card {
+  margin-top: 20px;
+}
+
+.mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}

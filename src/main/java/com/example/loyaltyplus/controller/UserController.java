@@ -1,6 +1,8 @@
 package com.example.loyaltyplus.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,11 @@ public class UserController {
 		return userService.getUserById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 
+	@GetMapping("/shoppers")
+	public ResponseEntity<List<User>> getAllShoppers() {
+		return ResponseEntity.ok(userService.getAllShoppers());
+	}
+
 	@PostMapping("/update/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody UserDto userDto) {
 		try {
@@ -51,6 +58,17 @@ public class UserController {
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.badRequest().build();
 		}
+	}
+
+	@PostMapping("/update/points/{id}")
+	public ResponseEntity<Map<String, String>> updatePoints(@PathVariable Long id,
+			@RequestBody Map<String, Integer> body) {
+		int newPoints = body.get("currentPoints");
+		userService.updateUserPoints(id, newPoints);
+
+		Map<String, String> response = new HashMap<>();
+		response.put("message", "Points updated successfully");
+		return ResponseEntity.ok(response);
 	}
 
 	@DeleteMapping("/delete/{id}")

@@ -27,6 +27,10 @@ public class RewardService {
 		return rewardRepository.findById(id);
 	}
 
+	public List<Reward> getActiveRewards() {
+		return rewardRepository.findAllActiveRewards();
+	}
+
 	public Reward createReward(Reward reward) {
 		Reward newReward = new Reward();
 

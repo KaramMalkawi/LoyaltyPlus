@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="customer-container">
   <div *ngIf="isLoading" class="loading-spinner">
     <mat-spinner></mat-spinner>
@@ -54,61 +55,13 @@
   <div *ngIf="!isLoading && !customer" class="no-customer">
     <p>No customer data available</p>
   </div>
-
-  <!-- Rewards Section -->
-  <div *ngIf="!isLoading && customer" class="rewards-section">
-    <h2>Available Rewards</h2>
-    
-    <div *ngIf="isRewardsLoading" class="loading-spinner">
-      <mat-spinner></mat-spinner>
-    </div>
-
-    <div *ngIf="!isRewardsLoading">
-      <table mat-table [dataSource]="rewards" class="rewards-table">
-        <!-- Title Column -->
-        <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef> Reward </th>
-          <td mat-cell *matCellDef="let reward"> {{reward.title}} </td>
-        </ng-container>
-
-        <!-- Description Column -->
-        <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef> Description </th>
-          <td mat-cell *matCellDef="let reward"> {{reward.description}} </td>
-        </ng-container>
-
-        <!-- Points Required Column -->
-        <ng-container matColumnDef="pointsRequired">
-          <th mat-header-cell *matHeaderCellDef> Points Required </th>
-          <td mat-cell *matCellDef="let reward"> {{reward.pointsRequired}} </td>
-        </ng-container>
-
-        <!-- Action Column -->
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef> Action </th>
-          <td mat-cell *matCellDef="let reward">
-            <button mat-raised-button color="primary" 
-                    (click)="redeemReward(reward.id)"
-                    [disabled]="customer.currentPoints < reward.pointsRequired">
-              Redeem
-            </button>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-
-      <div *ngIf="rewards.length === 0" class="no-rewards">
-        <p>No rewards available or you don't have enough points.</p>
-      </div>
-    </div>
-  </div>
 </div>
-
 <div class="actions">
   <button mat-raised-button color="primary" (click)="navigateToEditCustomer()">
     Edit
+  </button>
+  <button mat-raised-button class="add-reward-button" (click)="addRewards()">
+    Add Rewards
   </button>
   <button mat-raised-button color="warn" (click)="deleteCustomer()">
     Delete

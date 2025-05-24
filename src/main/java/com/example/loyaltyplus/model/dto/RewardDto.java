@@ -1,7 +1,8 @@
 package com.example.loyaltyplus.model.dto;
 
 import java.util.Date;
-import java.util.List;
+
+import com.example.loyaltyplus.model.entity.Reward;
 
 public class RewardDto {
 
@@ -12,14 +13,18 @@ public class RewardDto {
 	private boolean isActive;
 	private Date createdAt;
 	private Date updatedAt;
-	private List<RewardRedemptionDto> redemptions; // DTO for nested objects
+
+	public static RewardDto toDto(Reward reward) {
+		return new RewardDto(reward.getId(), reward.getTitle(), reward.getDescription(), reward.getPointsRequired(),
+				reward.isActive(), reward.getCreatedAt(), reward.getUpdatedAt());
+	}
 
 	// Constructors
 	public RewardDto() {
 	}
 
 	public RewardDto(Long id, String title, String description, int pointsRequired, boolean isActive, Date createdAt,
-			Date updatedAt, List<RewardRedemptionDto> redemptions) {
+			Date updatedAt) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
@@ -27,7 +32,6 @@ public class RewardDto {
 		this.isActive = isActive;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
-		this.redemptions = redemptions;
 	}
 
 	// Getters and Setters
@@ -87,11 +91,4 @@ public class RewardDto {
 		this.updatedAt = updatedAt;
 	}
 
-	public List<RewardRedemptionDto> getRedemptions() {
-		return redemptions;
-	}
-
-	public void setRedemptions(List<RewardRedemptionDto> redemptions) {
-		this.redemptions = redemptions;
-	}
 }

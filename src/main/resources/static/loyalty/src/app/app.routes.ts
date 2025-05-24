@@ -1,3 +1,4 @@
+import { AddRewardsComponent } from './add-rewards/add-rewards.component';
 import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
@@ -14,4 +15,5 @@ export const routes: Routes = [
 
   { path: 'edit-customer/:id', component: EditCustomerInfoComponent },
   { path: 'view-customer/:id', component: ViewCustomerDetailsComponent },
+  { path: 'add-rewards/:id', component: AddRewardsComponent },
 ];

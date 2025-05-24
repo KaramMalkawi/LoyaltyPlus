@@ -1,5 +1,6 @@
 package com.example.loyaltyplus.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -24,7 +25,9 @@ import jakarta.servlet.http.HttpServletResponse;
 @CrossOrigin(origins = "http://localhost:4200")
 public class AuthenticationController {
 
+	@Autowired
 	private final JwtService jwtService;
+	@Autowired
 	private AuthenticationService authenticationService;
 
 	public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
@@ -33,11 +36,22 @@ public class AuthenticationController {
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<User> register(@RequestBody UserDto registerUserDto) {
-		User registeredUser = authenticationService.signup(registerUserDto);
-		System.err.print(registeredUser);
-		return ResponseEntity.ok(registeredUser);
+	public ResponseEntity<?> register(@RequestBody UserDto registerUserDto) {
+		try {
+			User registeredUser = authenticationService.signup(registerUserDto);
+			return ResponseEntity.ok(registeredUser);
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body("Invalid role: " + e.getMessage());
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body("Server error: " + e.getMessage());
+		}
 	}
+//	@PostMapping("/signup")
+//	public ResponseEntity<User> register(@RequestBody UserDto registerUserDto) {
+//		User registeredUser = authenticationService.signup(registerUserDto);
+//		System.err.print(registeredUser);
+//		return ResponseEntity.ok(registeredUser);
+//	}
 
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {

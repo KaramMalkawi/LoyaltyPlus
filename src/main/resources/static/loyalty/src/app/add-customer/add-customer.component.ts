@@ -8,12 +8,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatError } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 
 @Component({
   selector: 'app-add-customer',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatError, CommonModule, ReactiveFormsModule],
+  imports: [MatFormFieldModule, 
+    MatInputModule,
+    MatError,
+    CommonModule,
+    ReactiveFormsModule,
+    NavbarComponent
+  ],
   templateUrl: './add-customer.component.html',
   styleUrls: ['./add-customer.component.scss']
 })

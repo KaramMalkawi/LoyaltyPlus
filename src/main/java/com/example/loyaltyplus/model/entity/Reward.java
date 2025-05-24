@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,6 +41,7 @@ public class Reward {
 	private boolean isActive;
 
 	@OneToMany(mappedBy = "reward", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<RewardRedemption> redemptions;
 
 	@Column(name = "created_at", nullable = false, updatable = false)

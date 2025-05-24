@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-edit-customer-info',
@@ -20,8 +21,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatProgressSpinnerModule
-  ],
+    MatProgressSpinnerModule,
+    NavbarComponent
+],
   templateUrl: './edit-customer-info.component.html',
   styleUrls: ['./edit-customer-info.component.scss']
 })
@@ -150,7 +152,7 @@ export class EditCustomerInfoComponent implements OnInit {
         this.snackBar.open('Customer updated successfully!', 'Close', {
           duration: 3000
         });
-        this.router.navigate(['/manager-dashboard']);
+        this.router.navigate(['/view-customer', this.customerId]);
       })
       .catch(error => {
         this.handleAuthError(error);

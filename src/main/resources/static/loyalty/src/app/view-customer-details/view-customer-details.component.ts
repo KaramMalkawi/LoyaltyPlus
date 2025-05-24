@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
+
+import { NavbarComponent } from '../navbar/navbar.component';
 
 interface Customer {
   id: number;
@@ -21,25 +22,14 @@ interface Customer {
   };
 }
 
-interface Reward {
-  id: number;
-  title: string;
-  description: string;
-  pointsRequired: number;
-  isActive: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
-
 @Component({
   selector: 'app-view-customer-details',
-  standalone: true,
+  standalone: true, // Required when using `imports` array in @Component
   imports: [
     CommonModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    MatTableModule,
-    MatButtonModule
+    NavbarComponent
   ],
   templateUrl: './view-customer-details.component.html',
   styleUrls: ['./view-customer-details.component.scss']
@@ -48,11 +38,6 @@ export class ViewCustomerDetailsComponent implements OnInit {
   customer: Customer | null = null;
   isLoading = true;
   customerId: number | null = null;
-  
-  // Rewards properties
-  rewards: Reward[] = [];
-  displayedColumns: string[] = ['title', 'description', 'pointsRequired', 'action'];
-  isRewardsLoading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -78,7 +63,6 @@ export class ViewCustomerDetailsComponent implements OnInit {
     if(!token) {
       this.router.navigate(['']);
     }
-    
     fetch(`http://localhost:8080/api/users/find/${this.customerId}`, {
       method: 'GET',
       headers: {
@@ -94,7 +78,7 @@ export class ViewCustomerDetailsComponent implements OnInit {
       })
       .then((data: Customer) => {
         this.customer = data;
-        this.fetchAvailableRewards();
+        this.isLoading = false;
       })
       .catch(error => {
         console.error('Error:', error);
@@ -102,77 +86,6 @@ export class ViewCustomerDetailsComponent implements OnInit {
           duration: 3000
         });
         this.isLoading = false;
-      });
-  }
-
-  fetchAvailableRewards(): void {
-    this.isRewardsLoading = true;
-    const token = localStorage.getItem('token');
-
-    fetch('http://localhost:8080/api/rewards/all', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch rewards');
-        }
-        return response.json();
-      })
-      .then((data: Reward[]) => {
-        this.rewards = data.filter(reward => 
-          reward.isActive && reward.pointsRequired <= (this.customer?.currentPoints || 0)
-        );
-        this.isLoading = false;
-        this.isRewardsLoading = false;
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        this.snackBar.open('Failed to load rewards', 'Close', {
-          duration: 3000
-        });
-        this.isRewardsLoading = false;
-      });
-  }
-
-  redeemReward(rewardId: number): void {
-    if (!this.customerId) return;
-    
-    const token = localStorage.getItem('token');
-    this.isRewardsLoading = true;
-
-    fetch(`http://localhost:8080/api/rewards/redeem`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        userId: this.customerId,
-        rewardId: rewardId
-      })
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to redeem reward');
-        }
-        return response.json();
-      })
-      .then(() => {
-        this.snackBar.open('Reward redeemed successfully!', 'Close', {
-          duration: 3000
-        });
-        this.fetchCustomerDetails();
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        this.snackBar.open('Failed to redeem reward', 'Close', {
-          duration: 3000
-        });
-        this.isRewardsLoading = false;
       });
   }
 
@@ -211,10 +124,18 @@ export class ViewCustomerDetailsComponent implements OnInit {
           duration: 3000
         });
         this.router.navigate(['/manager-dashboard']);
+        // If you need to remove the deleted user from a list:
+        // this.dataSource.data = this.dataSource.data.filter(user => user.id !== customerId);
       })
       .catch(error => {
         console.error('Delete user error:', error.message);
         alert('Error deleting user. See console for details.');
       });
+  }
+
+  addRewards(): void {
+    if (this.customerId) {
+      this.router.navigate(['/add-rewards', this.customerId]);
+    }
   }
 }

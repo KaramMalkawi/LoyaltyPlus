@@ -17,7 +17,7 @@ import com.example.loyaltyplus.model.entity.RewardRedemption;
 import com.example.loyaltyplus.service.RewardRedemptionService;
 
 @RestController
-@RequestMapping("/api/reward-redemptions")
+@RequestMapping("/reward-redemptions")
 public class RewardRedemptionController {
 
 	@Autowired
@@ -40,10 +40,16 @@ public class RewardRedemptionController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<RewardRedemption> createRewardRedemption(@RequestBody RewardRedemption rewardRedemption) {
-		RewardRedemption created = rewardRedemptionService.createRewardRedemption(rewardRedemption);
-		return ResponseEntity.ok(created);
+	public ResponseEntity<RewardRedemptionDto> createRewardRedemption(@RequestBody RewardRedemptionDto dto) {
+		RewardRedemption created = rewardRedemptionService.createRewardRedemptionFromDto(dto);
+		return ResponseEntity.ok(RewardRedemptionDto.fromEntity(created));
 	}
+
+//	@PostMapping("/create")
+//	public ResponseEntity<RewardRedemption> createRewardRedemption(@RequestBody RewardRedemption rewardRedemption) {
+//		RewardRedemption created = rewardRedemptionService.createRewardRedemption(rewardRedemption);
+//		return ResponseEntity.ok(created);
+//	}
 
 	@PostMapping("/update/{id}")
 	public ResponseEntity<RewardRedemption> updateRewardRedemption(@PathVariable Long id,

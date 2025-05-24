@@ -41,6 +41,10 @@ public class UserService {
 		return userRepository.findByUsername(username);
 	}
 
+	public List<User> getAllShoppers() {
+		return userRepository.findAllShoppers();
+	}
+
 	public User updateUser(Long id, UserDto dto) throws NoSuchElementException, IllegalArgumentException {
 		if (dto == null) {
 			throw new IllegalArgumentException("User DTO cannot be null");
@@ -69,6 +73,10 @@ public class UserService {
 			existingUser.setPhone(dto.getPhone());
 		}
 
+		if (dto.getCurrentPoints() != null) {
+			existingUser.setCurrentPoints(dto.getCurrentPoints());
+		}
+
 		// Validate and set role
 		if (dto.getRoleName() != null) {
 			String roleName = dto.getRoleName().toUpperCase();
@@ -89,6 +97,13 @@ public class UserService {
 		existingUser.setUpdatedAt(new Date());
 
 		return userRepository.save(existingUser);
+	}
+
+	public User updateUserPoints(Long id, int points) {
+		User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+		user.setCurrentPoints(points);
+		user.setUpdatedAt(new Date());
+		return userRepository.save(user);
 	}
 
 	public void deleteUser(Long id) {

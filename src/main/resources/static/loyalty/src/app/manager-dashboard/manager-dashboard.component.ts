@@ -12,6 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 
 import { MyPopupComponent } from '../my-popup/my-popup.component';
+import { NavbarComponent } from '../navbar/navbar.component';
+
 
 interface User {
   id: number;
@@ -34,7 +36,8 @@ interface User {
     MatPaginatorModule,
     MatButtonModule,
     DatePipe,
-    MyPopupComponent
+    MyPopupComponent,
+    NavbarComponent
   ],
   templateUrl: './manager-dashboard.component.html',
   styleUrl: './manager-dashboard.component.scss',

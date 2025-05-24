@@ -1,6 +1,7 @@
 package com.example.loyaltyplus.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.loyaltyplus.model.dto.RewardDto;
 import com.example.loyaltyplus.model.entity.Reward;
 import com.example.loyaltyplus.service.RewardService;
 
@@ -26,16 +28,38 @@ public class RewardController {
 		this.rewardService = rewardService;
 	}
 
+//	@GetMapping("/all")
+//	public ResponseEntity<List<Reward>> getAllRewards() {
+//		List<Reward> rewards = rewardService.getAllRewards();
+//		return ResponseEntity.ok(rewards);
+//	}
+
 	@GetMapping("/all")
 	public ResponseEntity<List<Reward>> getAllRewards() {
 		List<Reward> rewards = rewardService.getAllRewards();
-		return ResponseEntity.ok(rewards);
+		return ResponseEntity.ok().body(rewards); // Ensure it's correctly formatted as a JSON array
 	}
 
 	@GetMapping("/find/{id}")
 	public ResponseEntity<Reward> getRewardById(@PathVariable Long id) {
 		return rewardService.getRewardById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
+
+	@GetMapping("/active")
+	public ResponseEntity<List<RewardDto>> getActiveRewards() {
+		List<Reward> activeRewards = rewardService.getActiveRewards();
+		List<RewardDto> dtos = activeRewards.stream()
+				.map(reward -> new RewardDto(reward.getId(), reward.getTitle(), reward.getDescription(),
+						reward.getPointsRequired(), reward.isActive(), reward.getCreatedAt(), reward.getUpdatedAt()))
+				.collect(Collectors.toList());
+		return ResponseEntity.ok(dtos);
+	}
+	// RewardController.java
+//	@GetMapping("/active")
+//	public ResponseEntity<List<Reward>> getActiveRewards() {
+//		List<Reward> activeRewards = rewardService.getActiveRewards();
+//		return ResponseEntity.ok(activeRewards);
+//	}
 
 	@PostMapping("/create")
 	public ResponseEntity<Reward> createReward(@RequestBody Reward reward) {

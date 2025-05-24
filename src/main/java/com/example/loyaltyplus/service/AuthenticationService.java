@@ -39,11 +39,13 @@ public class AuthenticationService {
 	}
 
 	public User signup(UserDto input) {
+		System.out.println("Received signup request: " + input);
 		String roleName = (input.getRoleName() != null) ? input.getRoleName().toUpperCase() : "SHOPPER";
+		System.out.println("Role name: " + roleName);
 
-		// Find the Role entity by name
 		Role role = roleRepository.findByName(roleName)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid role: " + roleName));
+		System.out.println("Found role: " + role.getName());
 
 		User user = new User();
 		user.setFirstName(input.getFirstName());
@@ -52,12 +54,13 @@ public class AuthenticationService {
 		user.setPhone(input.getPhone());
 		user.setEmail(input.getEmail());
 		user.setPassword(passwordEncoder.encode(input.getPassword()));
-		user.setRole(role); // Now correctly sets Role object
-
-		user.setCurrentPoints(0); // Initialize points to 0
+		user.setRole(role);
+		user.setCurrentPoints(0);
 		user.setCreatedAt(new Date());
 
-		return userRepository.save(user);
+		User savedUser = userRepository.save(user);
+		System.out.println("Saved user: " + savedUser);
+		return savedUser;
 	}
 
 	public User authenticate(LoginUserDto input) {
