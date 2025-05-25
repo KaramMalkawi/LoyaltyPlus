@@ -40,6 +40,14 @@ public class RewardRedemptionService {
 		return rewardRedemptionRepository.findById(id);
 	}
 
+	public List<RewardRedemption> getRewardRedemptionsByUserId(Long userId) {
+		return rewardRedemptionRepository.findByUserId(userId);
+	}
+
+	List<RewardRedemption> findByRewardId(Long rewardId) {
+		return rewardRedemptionRepository.findByRewardId(rewardId);
+	}
+
 	public RewardRedemption createRewardRedemption(RewardRedemption rewardRedemption) {
 		RewardRedemption newRewardRedemption = new RewardRedemption();
 

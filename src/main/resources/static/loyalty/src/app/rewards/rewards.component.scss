@@ -1,0 +1,56 @@
+/* all-rewards.component.scss */
+.rewards-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    gap: 16px;
+  }
+
+  .error-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    gap: 16px;
+    color: #f44336;
+
+    button {
+      margin-top: 16px;
+    }
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .points-badge {
+    background-color: #673ab7;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 0.8em;
+  }
+
+  .status-badge {
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 0.8em;
+    font-weight: 500;
+  }
+
+  .active-badge {
+    background-color: #4caf50;
+    color: white;
+  }
+
+  .inactive-badge {
+    background-color: #f44336;
+    color: white;
+  }
+}

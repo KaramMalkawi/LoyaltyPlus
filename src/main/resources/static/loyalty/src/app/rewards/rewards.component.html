@@ -1,0 +1,85 @@
+<app-marketing-analyst-navbar></app-marketing-analyst-navbar>
+<div class="rewards-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>All Rewards</mat-card-title>
+      <mat-card-subtitle>
+        Available rewards in the loyalty program
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (isLoading) {
+        <div class="loading-spinner">
+          <mat-spinner diameter="50"></mat-spinner>
+          <p>Loading rewards...</p>
+        </div>
+      } @else if (error) {
+        <div class="error-message">
+          <mat-icon color="warn">error_outline</mat-icon>
+          <p>{{ error }}</p>
+          <button mat-raised-button color="primary" (click)="fetchAllRewards()">
+            Retry
+          </button>
+        </div>
+      } @else {
+        <div class="table-container">
+          <button mat-raised-button color="primary" (click)="exportToExcel()">
+            Export to Excel
+          </button>
+
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Title Column -->
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef>Reward Title</th>
+              <td mat-cell *matCellDef="let reward">
+                <strong>{{ reward.title }}</strong>
+              </td>
+            </ng-container>
+
+            <!-- Description Column -->
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef>Description</th>
+              <td mat-cell *matCellDef="let reward">
+                <span [matTooltip]="reward.description" matTooltipPosition="right">
+                  {{ truncate(reward.description, 50) }}
+                </span>
+              </td>
+            </ng-container>
+
+            <!-- Points Column -->
+            <ng-container matColumnDef="points">
+              <th mat-header-cell *matHeaderCellDef>Points Required</th>
+              <td mat-cell *matCellDef="let reward">
+                <span class="points-badge">
+                  {{ reward.pointsRequired }} pts
+                </span>
+              </td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>Status</th>
+              <td mat-cell *matCellDef="let reward">
+                <span [class]="getStatusClass(reward.isActive)" class="status-badge">
+                  {{ getStatusBadge(reward.isActive) }}
+                </span>
+              </td>
+            </ng-container>
+
+            <!-- Created Column -->
+            <ng-container matColumnDef="created">
+              <th mat-header-cell *matHeaderCellDef>Created</th>
+              <td mat-cell *matCellDef="let reward">
+                {{ reward.createdAt | date : "mediumDate" }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

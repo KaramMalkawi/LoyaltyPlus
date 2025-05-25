@@ -9,7 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NavbarComponent } from "../navbar/navbar.component";
+import { ManagerNavbarComponent } from "../manager-navbar/manager-navbar.component";
+import { ManagerDashboardComponent } from "../manager-dashboard/manager-dashboard.component";
 
 @Component({
   selector: 'app-edit-customer-info',
@@ -22,7 +23,7 @@ import { NavbarComponent } from "../navbar/navbar.component";
     MatInputModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    NavbarComponent
+    ManagerNavbarComponent,
 ],
   templateUrl: './edit-customer-info.component.html',
   styleUrls: ['./edit-customer-info.component.scss']

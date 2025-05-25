@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { NavbarComponent } from '../navbar/navbar.component';
+import { ManagerNavbarComponent } from "../manager-navbar/manager-navbar.component";
 
 interface Customer {
   id: number;
@@ -29,7 +29,7 @@ interface Customer {
     CommonModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    NavbarComponent
+    ManagerNavbarComponent
   ],
   templateUrl: './view-customer-details.component.html',
   styleUrls: ['./view-customer-details.component.scss']

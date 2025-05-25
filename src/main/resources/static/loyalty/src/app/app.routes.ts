@@ -6,6 +6,10 @@ import { ManagerDashboardComponent } from './manager-dashboard/manager-dashboard
 import { EditCustomerInfoComponent } from './edit-customer-info/edit-customer-info.component';
 import { ViewCustomerDetailsComponent } from './view-customer-details/view-customer-details.component';
 import { AddCustomerComponent } from './add-customer/add-customer.component'
+import { CreateRewardsComponent } from './create-rewards/create-rewards.component';
+import { MarketingAnalystDashboardComponent } from './marketing-analyst-dashboard/marketing-analyst-dashboard.component';
+import { RewardsComponent } from './rewards/rewards.component';
+import { RewardsHistoryComponent } from './rewards-history/rewards-history.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -16,4 +20,10 @@ export const routes: Routes = [
   { path: 'edit-customer/:id', component: EditCustomerInfoComponent },
   { path: 'view-customer/:id', component: ViewCustomerDetailsComponent },
   { path: 'add-rewards/:id', component: AddRewardsComponent },
+  { path: 'create-reward', component: CreateRewardsComponent },
+
+  { path: 'marketing-analyst-dashboard', component: MarketingAnalystDashboardComponent },
+
+  { path: 'rewards', component: RewardsComponent },
+  { path: 'rewards-history', component: RewardsHistoryComponent }
 ];

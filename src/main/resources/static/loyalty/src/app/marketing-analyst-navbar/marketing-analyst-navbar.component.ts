@@ -2,13 +2,16 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+  selector: 'app-marketing-analyst-navbar',
+  imports: [],
+  templateUrl: './marketing-analyst-navbar.component.html',
+  styleUrl: './marketing-analyst-navbar.component.scss'
 })
-export class NavbarComponent {
+export class MarketingAnalystNavbarComponent {
   token: string | null = null;
 
+/*************  ✨ Windsurf Command ⭐  *************/
+/*******  485dc031-1957-48d8-88ce-761689f972ef  *******/
   constructor(private router: Router) {
     this.token = localStorage.getItem('token'); // Get token from local storage
   }
@@ -18,6 +21,9 @@ export class NavbarComponent {
     this.router.navigate(['/']);
   }
 
+  navigateToReward() {
+    this.router.navigate(['/create-reward']);
+  }
   redirectToManagerItems(): void {
     this.router.navigate(['/manager-item']);
   }

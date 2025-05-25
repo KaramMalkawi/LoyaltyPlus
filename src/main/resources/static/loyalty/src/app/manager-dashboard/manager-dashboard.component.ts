@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 
 import { MyPopupComponent } from '../my-popup/my-popup.component';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { ManagerNavbarComponent } from '../manager-navbar/manager-navbar.component';
 
 
 interface User {
@@ -37,7 +37,7 @@ interface User {
     MatButtonModule,
     DatePipe,
     MyPopupComponent,
-    NavbarComponent
+    ManagerNavbarComponent
   ],
   templateUrl: './manager-dashboard.component.html',
   styleUrl: './manager-dashboard.component.scss',

@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Component, inject, OnInit } from '@angular/core';
-import { NavbarComponent } from "../navbar/navbar.component";
+import { ManagerNavbarComponent } from "../manager-navbar/manager-navbar.component";
 
 interface Reward {
   id: number;
@@ -24,7 +24,7 @@ interface Reward {
     MatCardModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    NavbarComponent
+    ManagerNavbarComponent
 ],
   templateUrl: './add-rewards.component.html',
   styleUrls: ['./add-rewards.component.scss'],

@@ -1,0 +1,75 @@
+<app-manager-navbar></app-manager-navbar>
+
+<div class="create-reward-container">
+  <mat-card class="reward-card">
+    <div class="reward-card-header">
+      <h2>Create New Reward</h2>
+    </div>
+
+    <form [formGroup]="rewardForm" (ngSubmit)="onSubmit()">
+      <!-- Title Field -->
+      <div class="form-field">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" required />
+          <mat-error *ngIf="rewardForm.get('title')?.hasError('required')">
+            Title is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Description Field -->
+      <div class="form-field">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" rows="3"></textarea>
+        </mat-form-field>
+      </div>
+
+      <!-- Points Required Field -->
+      <div class="form-field">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Points Required</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="pointsRequired"
+            required
+          />
+          <mat-error
+            *ngIf="rewardForm.get('pointsRequired')?.hasError('required')"
+          >
+            Points required is mandatory
+          </mat-error>
+          <mat-error *ngIf="rewardForm.get('pointsRequired')?.hasError('min')">
+            Must be at least 1 point
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Active Checkbox -->
+      <div class="form-field">
+        <mat-checkbox formControlName="isActive" color="primary"
+          >Active</mat-checkbox
+        >
+        <!-- Add error message if needed -->
+        <mat-error *ngIf="rewardForm.get('isActive')?.invalid">
+          Active status is required
+        </mat-error>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="button-group">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="rewardForm.invalid || isLoading"
+        >
+          <span *ngIf="!isLoading">Create Reward</span>
+          <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

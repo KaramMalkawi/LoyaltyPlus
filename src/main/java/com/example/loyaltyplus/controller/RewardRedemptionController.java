@@ -39,6 +39,13 @@ public class RewardRedemptionController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 
+	@GetMapping("/user/{userId}")
+	public ResponseEntity<List<RewardRedemptionDto>> getRewardRedemptionsByUserId(@PathVariable Long userId) {
+		List<RewardRedemption> redemptions = rewardRedemptionService.getRewardRedemptionsByUserId(userId);
+		List<RewardRedemptionDto> dtos = redemptions.stream().map(RewardRedemptionDto::fromEntity).toList();
+		return ResponseEntity.ok(dtos);
+	}
+
 	@PostMapping("/create")
 	public ResponseEntity<RewardRedemptionDto> createRewardRedemption(@RequestBody RewardRedemptionDto dto) {
 		RewardRedemption created = rewardRedemptionService.createRewardRedemptionFromDto(dto);

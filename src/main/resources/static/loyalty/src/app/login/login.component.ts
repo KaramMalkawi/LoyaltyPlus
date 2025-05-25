@@ -99,12 +99,10 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userRole', userRole);
           localStorage.setItem('userId', userId);
 
-          if (userRole === 'SHOPPER') {
-            this.router.navigate(['/shopper']);
-          } else if (userRole === 'STORE_MANAGER') {
+          if (userRole === 'STORE_MANAGER') {
             this.router.navigate(['/manager-dashboard']);
           } else if (userRole === 'MARKETING_ANALYST') {
-            this.router.navigate(['/marketing-analyst']);
+            this.router.navigate(['/marketing-analyst-dashboard']);
           } else {
             alert('Invalid user type');
           }

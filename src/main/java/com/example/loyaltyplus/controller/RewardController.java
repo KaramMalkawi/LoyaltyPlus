@@ -28,12 +28,6 @@ public class RewardController {
 		this.rewardService = rewardService;
 	}
 
-//	@GetMapping("/all")
-//	public ResponseEntity<List<Reward>> getAllRewards() {
-//		List<Reward> rewards = rewardService.getAllRewards();
-//		return ResponseEntity.ok(rewards);
-//	}
-
 	@GetMapping("/all")
 	public ResponseEntity<List<Reward>> getAllRewards() {
 		List<Reward> rewards = rewardService.getAllRewards();
@@ -54,12 +48,6 @@ public class RewardController {
 				.collect(Collectors.toList());
 		return ResponseEntity.ok(dtos);
 	}
-	// RewardController.java
-//	@GetMapping("/active")
-//	public ResponseEntity<List<Reward>> getActiveRewards() {
-//		List<Reward> activeRewards = rewardService.getActiveRewards();
-//		return ResponseEntity.ok(activeRewards);
-//	}
 
 	@PostMapping("/create")
 	public ResponseEntity<Reward> createReward(@RequestBody Reward reward) {
